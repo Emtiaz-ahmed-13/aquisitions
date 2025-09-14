@@ -15,6 +15,8 @@ A production-ready backend service for handling user authentication and data man
 - [Security Features](#security-features)
 - [Testing](#testing)
 - [Docker Deployment](#docker-deployment)
+  - [Development with Neon Local](#development-with-neon-local)
+  - [Production with Neon Cloud](#production-with-neon-cloud)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
@@ -352,7 +354,7 @@ Tests are located in the `tests/` directory:
 
 ### Example Test Output
 
-```bash
+```
 PASS tests/app.test.js
   API Endpoints
     GET /health
@@ -368,38 +370,50 @@ Tests:       3 passed, 3 total
 
 ## Docker Deployment
 
-### Development with Docker
+### Development with Neon Local
 
-```bash
-# Run in Docker development mode
-npm run dev:docker
-```
+For local development, the application uses Neon Local via Docker to create ephemeral database branches. This provides a clean database environment for each development session.
 
-### Production with Docker
+1. **Setup Neon Credentials**:
+   Create a `.env.development` file with your Neon credentials:
 
-```bash
-# Run in Docker production mode
-npm run prod:docker
-```
+   ```env
+   NEON_API_KEY=your_neon_api_key_here
+   NEON_PROJECT_ID=your_neon_project_id_here
+   ```
 
-### Docker Compose Configuration
+2. **Start the Development Environment**:
+   ```bash
+   # Run in Docker development mode with Neon Local
+   docker-compose -f docker-compose.dev.yml up
+   ```
 
-The project includes a `docker-compose.yml` file for easy container orchestration:
+This will start both your application and the Neon Local proxy. The Neon Local proxy automatically creates ephemeral database branches for development and testing.
 
-```yaml
-version: '3.8'
-services:
-  app:
-    build: .
-    ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run dev
-```
+### Production with Neon Cloud
+
+For production deployment, the application connects directly to the Neon Cloud database without using the Neon Local proxy.
+
+1. **Setup Production Environment**:
+   Create a `.env.production` file with your production credentials:
+
+   ```env
+   DATABASE_URL=your_production_neon_database_url_here
+   JWT_SECRET=your_production_jwt_secret_here
+   ARCJET_KEY=your_production_arcjet_key_here
+   ```
+
+2. **Start the Production Environment**:
+   ```bash
+   # Run in Docker production mode
+   docker-compose -f docker-compose.prod.yml up
+   ```
+
+### Docker Compose Files
+
+- `docker-compose.dev.yml`: Development environment with Neon Local proxy
+- `docker-compose.prod.yml`: Production environment connecting directly to Neon Cloud
+- `docker-compose.yml`: Base configuration (legacy)
 
 ## Project Structure
 

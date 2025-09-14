@@ -18,7 +18,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
 # Runtime data
 pids
@@ -36,7 +35,7 @@ coverage
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate build files
+# Grunt intermediate storage (https://gruntjs.com/)
 .grunt
 
 # Bower dependency directory (https://bower.io/)
@@ -49,13 +48,11 @@ bower_components
 build/Release
 
 # Dependency directories
+node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
 typings/
-
-# TypeScript cache
-*.tsbuildinfo
 
 # Optional npm cache directory
 .npm
@@ -73,43 +70,26 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env*
+.env
+.env.test
+.env.development
+.env.production
 
-# IDEs
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# macOS
+# OS generated files
 .DS_Store
-.AppleDouble
-.LSOverride
-._*
-.Spotlight-V100
-.Trashes
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# Windows
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-*.lnk
 
-# Docker
+# Docker related
 docker-compose.override.yml
-.dockerignore
+
+# Neon Local metadata (for persistent branches per Git branch)
+.neon_local/
 
 # Build outputs
 dist/

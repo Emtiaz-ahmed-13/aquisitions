@@ -1,7 +1,7 @@
 # Multi-stage Dockerfile for Node.js acquisitions application
 
 # Use Node.js 18 as the base image
-FROM node:18
+FROM node:18 AS base
 
 # Set the working directory
 WORKDIR /app
@@ -15,12 +15,6 @@ RUN npm ci
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Command to run the application
-CMD ["npm", "run", "dev"]
-
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
@@ -28,6 +22,9 @@ RUN addgroup -g 1001 -S nodejs && \
 # Change ownership of the app directory
 RUN chown -R nodejs:nodejs /app
 USER nodejs
+
+# Expose the port the app runs on
+EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
@@ -42,4 +39,4 @@ CMD ["npm", "run", "dev"]
 
 # Production stage
 FROM base AS production
-CMD ["npm", "start"]
+CMD ["node", "src/index.js"]

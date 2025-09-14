@@ -115,3 +115,9 @@
 {"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:10:36.329Z"}
 {"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:11:06.714Z"}
 {"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:11:36.973Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:12:07.208Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:12:37.474Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:13:07.680Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:13:37.898Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:14:08.110Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T20:14:38.313Z"}

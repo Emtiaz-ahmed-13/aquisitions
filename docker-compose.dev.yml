@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: development
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://neon:npg@neon-local:5432/neondb?sslmode=require
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+    depends_on:
+      - neon-local
+
+  neon-local:
+    image: neondatabase/neon_local:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - NEON_API_KEY=${NEON_API_KEY}
+      - NEON_PROJECT_ID=${NEON_PROJECT_ID}
+      # Create ephemeral branches for development (optional)
+      # - PARENT_BRANCH_ID=${PARENT_BRANCH_ID}
+    volumes:
+      # Optional: Persist branches per Git branch
+      # - ./.neon_local/:/tmp/.neon_local
+      # - ./.git/HEAD:/tmp/.git/HEAD:ro,consistent

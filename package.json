@@ -17,6 +17,7 @@
   },
   "scripts": {
     "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
@@ -27,8 +28,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studo": "drizzle-kit studio",
-    "dev:docker": "docker compose up",
-    "prod:docker": "docker compose -f docker-compose.yml up"
+    "dev:docker": "docker-compose -f docker-compose.dev.yml up",
+    "prod:docker": "docker-compose -f docker-compose.prod.yml up"
   },
   "repository": {
     "type": "git",
