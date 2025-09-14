@@ -1,7 +1,8 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
 import logger from '#config/logger.js';
 import authRoutes from '#routes/auth.routes.js';
+import usersRoutes from '#routes/users.routes.js';
+import cookieParser from 'cookie-parser';
+import express from 'express';
 
 const app = express();
 
@@ -27,5 +28,13 @@ app.get('/api', (req, res) => {
 
 // Auth routes
 app.use('/api/auth', authRoutes);
+
+// Users routes
+app.use('/api/users', usersRoutes);
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
 
 export default app;

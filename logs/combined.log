@@ -1,18 +1,7 @@
-{"level":"info","message":"Hello from Acquisition!","service":"acquisitions-api","timestamp":"2025-09-14T07:52:03.218Z"}
-{"level":"info","message":"::1 - - [14/Sep/2025:07:52:03 +0000] \"GET / HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\"","service":"acquisitions-api","timestamp":"2025-09-14T07:52:03.232Z"}
-{"level":"info","message":"Hello from Acquisition!","service":"acquisitions-api","timestamp":"2025-09-14T07:59:30.775Z"}
-{"level":"info","message":"Hello from Acquisition!","service":"acquisitions-api","timestamp":"2025-09-14T08:04:41.701Z"}
-{"level":"info","message":"Hello from Acquisition!","service":"acquisitions-api","timestamp":"2025-09-14T08:05:04.069Z"}
-{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T08:05:47.727Z"}
-{"error":{},"level":"error","message":"Error during signup","service":"acquisitions-api","timestamp":"2025-09-14T08:39:40.216Z"}
-{"level":"info","message":"User signed up successfully: emtiaz2060@gmail.com","service":"acquisitions-api","timestamp":"2025-09-14T08:43:37.455Z"}
-{"level":"info","message":"New user created: emtiaz2060@gmail.com","service":"acquisitions-api","timestamp":"2025-09-14T09:04:00.288Z"}
-{"level":"info","message":"User signed up successfully: emtiaz2060@gmail.com","service":"acquisitions-api","timestamp":"2025-09-14T09:04:00.300Z"}
-{"level":"error","message":"Error in creating user: Failed query: insert into \"users\" (\"id\", \"name\", \"email\", \"password\", \"role\", \"created_at\", \"updated_at\") values (default, $1, $2, $3, $4, default, default) returning \"id\", \"name\", \"email\", \"role\", \"created_at\", \"updated_at\"\nparams: Emtiaz Ahmed,emtiaz2060@gmail.com,Ea2060#22@,user","service":"acquisitions-api","timestamp":"2025-09-14T09:05:36.798Z"}
-{"error":"Error in creating user","level":"error","message":"Error during signup","service":"acquisitions-api","stack":"Error: Error in creating user\n    at createUser (file:///Users/emtiazahmed/Desktop/GITHUB/aquistions/src/services/auth.service.js:37:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async signup (file:///Users/emtiazahmed/Desktop/GITHUB/aquistions/src/controllers/auth.controller.js:36:18)","timestamp":"2025-09-14T09:05:36.805Z"}
-{"level":"info","message":"New user created: emtiazdev@gmail.com","service":"acquisitions-api","timestamp":"2025-09-14T09:09:09.928Z"}
-{"level":"info","message":"User signed up successfully: emtiazdev@gmail.com","service":"acquisitions-api","timestamp":"2025-09-14T09:09:09.940Z"}
-{"level":"error","message":"Error in creating user: User with this email already exists","service":"acquisitions-api","timestamp":"2025-09-14T09:09:48.727Z"}
-{"error":"User with this email already exists","level":"error","message":"Error during signup","service":"acquisitions-api","stack":"Error: User with this email already exists\n    at createUser (file:///Users/emtiazahmed/Desktop/GITHUB/aquistions/src/services/auth.service.js:25:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async signup (file:///Users/emtiazahmed/Desktop/GITHUB/aquistions/src/controllers/auth.controller.js:36:18)","timestamp":"2025-09-14T09:09:48.729Z"}
-{"level":"info","message":"New user created: emtiaz.ahmed@g.bracu.ac.bd","service":"acquisitions-api","timestamp":"2025-09-14T09:10:11.461Z"}
-{"level":"info","message":"User signed up successfully: emtiaz.ahmed@g.bracu.ac.bd","service":"acquisitions-api","timestamp":"2025-09-14T09:10:11.463Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:37:08.349Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:38:07.903Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:39:00.094Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:39:08.231Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:39:41.939Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:42:26.560Z"}
+{"level":"info","message":"Health check requested","service":"acquisitions-api","timestamp":"2025-09-14T19:42:30.393Z"}
