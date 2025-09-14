@@ -37,26 +37,26 @@ export const signup = async (req, res, next) => {
     }
 
     // Create user through service layer
-    const user = await createUser({ 
-      name, 
-      email, 
-      password, 
-      role: 'user' 
+    const user = await createUser({
+      name,
+      email,
+      password,
+      role: 'user',
     });
-    
+
     // Generate JWT token
-    const token = jwttoken.sign({ 
-      id: user.id, 
-      email: user.email, 
-      role: user.role 
+    const token = jwttoken.sign({
+      id: user.id,
+      email: user.email,
+      role: user.role,
     });
-    
+
     // Set authentication cookie
     cookies.set(res, 'token', token);
 
     // Log successful signup
     logger.info(`User signed up successfully: ${email}`);
-    
+
     // Return success response
     res.status(201).json({
       message: 'User signed up successfully',
@@ -68,21 +68,24 @@ export const signup = async (req, res, next) => {
       },
     });
   } catch (error) {
-    logger.error('Error during signup', { error: error.message, stack: error.stack });
+    logger.error('Error during signup', {
+      error: error.message,
+      stack: error.stack,
+    });
 
     // Handle specific business logic errors
     if (error.message === 'User with this email already exists') {
-      return res.status(409).json({ 
+      return res.status(409).json({
         error: 'Email already exists',
-        details: 'A user with this email address already exists' 
+        details: 'A user with this email address already exists',
       });
     }
 
     // Handle validation errors from service layer
     if (error.name === 'ValidationError') {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'validation failed',
-        details: error.message 
+        details: error.message,
       });
     }
 
@@ -106,7 +109,10 @@ export const authenticateUser = async ({ email, password }) => {
     }
 
     // Compare password
-    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
 
     if (!isPasswordValid) {
       throw new Error('Invalid password');
@@ -158,18 +164,18 @@ export const signIn = async (req, res, next) => {
     const user = await authenticateUser({ email, password });
 
     // Generate JWT token
-    const token = jwttoken.sign({ 
-      id: user.id, 
-      email: user.email, 
-      role: user.role 
+    const token = jwttoken.sign({
+      id: user.id,
+      email: user.email,
+      role: user.role,
     });
-    
+
     // Set authentication cookie
     cookies.set(res, 'token', token);
 
     // Log successful signin
     logger.info(`User signed in successfully: ${email}`);
-    
+
     // Return success response
     res.status(200).json({
       message: 'User signed in successfully',
@@ -181,13 +187,19 @@ export const signIn = async (req, res, next) => {
       },
     });
   } catch (error) {
-    logger.error('Error during signin', { error: error.message, stack: error.stack });
+    logger.error('Error during signin', {
+      error: error.message,
+      stack: error.stack,
+    });
 
     // Handle specific business logic errors
-    if (error.message === 'User not found' || error.message === 'Invalid password') {
-      return res.status(401).json({ 
+    if (
+      error.message === 'User not found' ||
+      error.message === 'Invalid password'
+    ) {
+      return res.status(401).json({
         error: 'Invalid credentials',
-        details: 'The email or password you entered is incorrect' 
+        details: 'The email or password you entered is incorrect',
       });
     }
 
@@ -203,13 +215,16 @@ export const signOut = async (req, res, next) => {
 
     // Log successful signout
     logger.info('User signed out successfully');
-    
+
     // Return success response
     res.status(200).json({
       message: 'User signed out successfully',
     });
   } catch (error) {
-    logger.error('Error during signout', { error: error.message, stack: error.stack });
+    logger.error('Error during signout', {
+      error: error.message,
+      stack: error.stack,
+    });
     // Pass errors to error handler middleware
     next(error);
   }

@@ -9,28 +9,30 @@ users = [
     id: 1,
     name: 'Admin User',
     email: 'admin@example.com',
-    password: '$2b$10$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', // dummy hash
+    password:
+      '$2b$10$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', // dummy hash
     role: 'admin',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   },
   {
     id: 2,
     name: 'Regular User',
     email: 'user@example.com',
-    password: '$2b$10$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', // dummy hash
+    password:
+      '$2b$10$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', // dummy hash
     role: 'user',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  }
+    updatedAt: new Date().toISOString(),
+  },
 ];
 
 export const getAllUsers = async () => {
   try {
     // Return users without passwords
     return users.map(user => {
-      const { password, ...userWithoutPassword } = user;
-      return userWithoutPassword;
+      delete user.password;
+      return user;
     });
   } catch (e) {
     logger.error('Error getting users', e);
@@ -38,7 +40,7 @@ export const getAllUsers = async () => {
   }
 };
 
-export const getUserById = async (id) => {
+export const getUserById = async id => {
   try {
     const user = users.find(user => user.id === parseInt(id));
 
@@ -47,8 +49,8 @@ export const getUserById = async (id) => {
     }
 
     // Return user without password
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+    delete user.password;
+    return user;
   } catch (e) {
     logger.error(`Error getting user by id ${id}:`, e);
     throw e;
@@ -75,20 +77,20 @@ export const updateUser = async (id, updates) => {
     users[userIndex] = {
       ...users[userIndex],
       ...updates,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     // Return user without password
-    const { password, ...updatedUser } = users[userIndex];
-    logger.info(`User ${updatedUser.email} updated successfully`);
-    return updatedUser;
+    delete users[userIndex].password;
+    logger.info(`User ${users[userIndex].email} updated successfully`);
+    return users[userIndex];
   } catch (e) {
     logger.error(`Error updating user ${id}:`, e);
     throw e;
   }
 };
 
-export const deleteUser = async (id) => {
+export const deleteUser = async id => {
   try {
     const userIndex = users.findIndex(user => user.id === parseInt(id));
 
@@ -98,10 +100,10 @@ export const deleteUser = async (id) => {
 
     // Remove user and return it without password
     const [deletedUser] = users.splice(userIndex, 1);
-    const { password, ...userWithoutPassword } = deletedUser;
-    
-    logger.info(`User ${userWithoutPassword.email} deleted successfully`);
-    return userWithoutPassword;
+    delete deletedUser.password;
+
+    logger.info(`User ${deletedUser.email} deleted successfully`);
+    return deletedUser;
   } catch (e) {
     logger.error(`Error deleting user ${id}:`, e);
     throw e;

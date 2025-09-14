@@ -1,50 +1,57 @@
 # Acquisitions API
 
-A robust backend service for handling user authentication and data management with built-in security features.
+A production-ready backend service for handling user authentication and data management with enterprise-grade security features.
 
 ## Table of Contents
-- [Features](#features)
+
+- [Overview](#overview)
+- [Key Features](#key-features)
 - [Tech Stack](#tech-stack)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
+- [Security Features](#security-features)
 - [Testing](#testing)
-- [Docker Setup](#docker-setup)
-- [Security](#security)
+- [Docker Deployment](#docker-deployment)
 - [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Features
+## Overview
 
-- 🔐 User authentication (register, login, logout)
-- 🛡️ Security middleware with Arcjet protection
-- 🧪 Comprehensive test coverage
-- 🐳 Docker support for easy deployment
-- 📝 Request/response validation with Zod
-- 🗃️ Database integration with Drizzle ORM
-- 📊 Logging with Winston
-- 🔒 Password hashing with bcrypt
-- 📈 Rate limiting and bot detection
+Acquisitions API is a robust, scalable backend solution designed for modern web applications. Built with security as a primary concern, it provides comprehensive user management, authentication, and data handling capabilities with enterprise-grade protection against common web vulnerabilities.
+
+## Key Features
+
+- 🔐 **Secure Authentication**: JWT-based authentication with bcrypt password hashing
+- 🛡️ **Advanced Security**: Arcjet integration for bot detection, rate limiting, and attack protection
+- 🧪 **Comprehensive Testing**: Full test coverage with Jest and Supertest
+- 🐳 **Containerized Deployment**: Docker support for consistent development and production environments
+- 📝 **Data Validation**: Zod schema validation for all API requests
+- 🗃️ **Database Integration**: PostgreSQL with Drizzle ORM for efficient data operations
+- 📊 **Detailed Logging**: Winston logging for monitoring and debugging
+- 🚀 **Modern Architecture**: Express.js with clean, modular code structure
 
 ## Tech Stack
 
 - **Runtime**: Node.js 18+
 - **Framework**: Express.js v5.1.0
-- **Database**: Neon PostgreSQL with Drizzle ORM
+- **Database**: PostgreSQL with Drizzle ORM
 - **Authentication**: JWT, bcrypt
 - **Validation**: Zod
 - **Security**: Arcjet, Helmet
 - **Logging**: Winston
 - **Testing**: Jest, Supertest
-- **Deployment**: Docker
+- **Deployment**: Docker, Docker Compose
 
 ## Prerequisites
 
 - Node.js 18+
 - npm or yarn
-- Docker (for containerized deployment)
-- Neon Database account (for production)
+- Docker and Docker Compose (for containerized deployment)
+- Arcjet account (for security features)
 
 ## Installation
 
@@ -64,19 +71,19 @@ npm install
 Create a `.env` file in the root directory with the following variables:
 
 ```env
-# Arcjet API Key (required for security features)
-ARCJET_KEY=your_arcjet_key_here
-
-# Neon Database Configuration (for production)
-NEON_API_KEY=your_neon_api_key_here
-NEON_PROJECT_ID=your_neon_project_id_here
-
-# JWT Secret (for authentication)
-JWT_SECRET=your_jwt_secret_here
-
 # Server Configuration
 PORT=3000
 NODE_ENV=development
+
+# Arcjet API Key (required for security features)
+ARCJET_KEY=your_arcjet_key_here
+
+# JWT Secret (for authentication)
+JWT_SECRET=your_jwt_secret_here
+JWT_EXPIRES_IN=24h
+
+# Database Configuration
+DATABASE_URL=your_database_connection_string
 ```
 
 ## Running the Application
@@ -98,7 +105,9 @@ npm start
 ## API Endpoints
 
 ### Health Check
+
 **GET** `/health`
+
 - **Description**: Check if the API is running
 - **Response**:
   ```json
@@ -109,7 +118,9 @@ npm start
   ```
 
 ### API Root
+
 **GET** `/api`
+
 - **Description**: Welcome message
 - **Response**:
   ```json
@@ -118,10 +129,12 @@ npm start
   }
   ```
 
-### Authentication
+### Authentication Endpoints
 
 #### Register User
-**POST** `/api/auth/register`
+
+**POST** `/api/auth/sign-up`
+
 - **Description**: Register a new user
 - **Request Body**:
   ```json
@@ -144,7 +157,9 @@ npm start
   ```
 
 #### Login User
-**POST** `/api/auth/login`
+
+**POST** `/api/auth/sign-in`
+
 - **Description**: Authenticate user and get access token
 - **Request Body**:
   ```json
@@ -167,9 +182,11 @@ npm start
   ```
 
 #### Logout User
-**POST** `/api/auth/logout`
+
+**POST** `/api/auth/sign-out`
+
 - **Description**: Invalidate user session
-- **Headers**: 
+- **Headers**:
   - Authorization: Bearer [token]
 - **Response**:
   ```json
@@ -178,27 +195,14 @@ npm start
   }
   ```
 
-#### Get User Profile
-**GET** `/api/auth/profile`
-- **Description**: Get authenticated user's profile
-- **Headers**: 
-  - Authorization: Bearer [token]
-- **Response**:
-  ```json
-  {
-    "id": "user_id",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "createdAt": "2025-09-14T19:39:41.939Z"
-  }
-  ```
-
-### Users Management
+### User Management Endpoints
 
 #### Get All Users
+
 **GET** `/api/users`
-- **Description**: Get list of all users (admin only)
-- **Headers**: 
+
+- **Description**: Get list of all users (requires authentication)
+- **Headers**:
   - Authorization: Bearer [token]
 - **Response**:
   ```json
@@ -215,9 +219,11 @@ npm start
   ```
 
 #### Get User by ID
+
 **GET** `/api/users/:id`
-- **Description**: Get specific user by ID
-- **Headers**: 
+
+- **Description**: Get specific user by ID (requires authentication)
+- **Headers**:
   - Authorization: Bearer [token]
 - **Response**:
   ```json
@@ -230,9 +236,11 @@ npm start
   ```
 
 #### Update User
+
 **PUT** `/api/users/:id`
-- **Description**: Update user information
-- **Headers**: 
+
+- **Description**: Update user information (requires authentication)
+- **Headers**:
   - Authorization: Bearer [token]
 - **Request Body**:
   ```json
@@ -254,9 +262,11 @@ npm start
   ```
 
 #### Delete User
+
 **DELETE** `/api/users/:id`
-- **Description**: Delete a user
-- **Headers**: 
+
+- **Description**: Delete a user (requires authentication)
+- **Headers**:
   - Authorization: Bearer [token]
 - **Response**:
   ```json
@@ -265,9 +275,61 @@ npm start
   }
   ```
 
+## Security Features
+
+### Arcjet Protection
+
+This application integrates Arcjet for comprehensive security protection:
+
+1. **Bot Detection**
+   - Blocks malicious bots and scrapers
+   - Allows legitimate search engine crawlers
+   - Customizable bot detection rules
+
+2. **Rate Limiting**
+   - Prevents abuse and DDoS attacks
+   - Configurable limits per endpoint
+   - IP-based rate limiting
+
+3. **Shield Protection**
+   - Protection against common web attacks
+   - SQL injection prevention
+   - Cross-site scripting (XSS) protection
+
+### Implementation Details
+
+The security middleware is applied to all routes and provides:
+
+- Real-time threat detection
+- Automated blocking of malicious requests
+- Detailed logging of security events
+- Minimal performance impact
+
+### Testing Security Features
+
+You can test the security features using the provided test scripts:
+
+```bash
+# Test rate limiting
+node test-rate-limit.js
+
+# Test bot detection
+node test-bot-detection.js
+```
+
+Or manually with curl:
+
+```bash
+# Test rate limiting
+for i in {1..5}; do curl http://localhost:3000/health; echo; done
+
+# Test bot detection
+curl -H "User-Agent: Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)" http://localhost:3000/health
+```
+
 ## Testing
 
-The project uses Jest and Supertest for testing.
+The project uses Jest and Supertest for comprehensive testing.
 
 ### Running Tests
 
@@ -285,6 +347,7 @@ npm run test:coverage
 ### Test Structure
 
 Tests are located in the `tests/` directory:
+
 - `app.test.js`: Tests for core API endpoints
 
 ### Example Test Output
@@ -303,7 +366,7 @@ Test Suites: 1 passed, 1 total
 Tests:       3 passed, 3 total
 ```
 
-## Docker Setup
+## Docker Deployment
 
 ### Development with Docker
 
@@ -319,7 +382,7 @@ npm run dev:docker
 npm run prod:docker
 ```
 
-### Docker Compose
+### Docker Compose Configuration
 
 The project includes a `docker-compose.yml` file for easy container orchestration:
 
@@ -329,7 +392,7 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=development
     volumes:
@@ -337,17 +400,6 @@ services:
       - /app/node_modules
     command: npm run dev
 ```
-
-## Security
-
-This project implements multiple security layers:
-
-1. **Arcjet Protection**: Bot detection, rate limiting, and attack protection
-2. **Helmet**: Security headers for Express
-3. **JWT**: Secure token-based authentication
-4. **Bcrypt**: Password hashing
-5. **Input Validation**: Zod schema validation for all requests
-6. **CORS**: Cross-origin resource sharing protection
 
 ## Project Structure
 

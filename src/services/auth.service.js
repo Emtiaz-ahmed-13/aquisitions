@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 // In-memory user store for development
 const users = [];
 
-export const hashPassword = async (password) => {
+export const hashPassword = async password => {
   try {
     return await bcrypt.hash(password, 10);
   } catch (error) {
@@ -33,16 +33,16 @@ export const createUser = async ({ name, email, password, role }) => {
       password: passwordHash,
       role: role || 'user',
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     users.push(newUser);
 
     logger.info(`New user created: ${email}`);
-    
+
     // Return user without password
-    const { password, ...userWithoutPassword } = newUser;
-    return userWithoutPassword;
+    delete newUser.password;
+    return newUser;
   } catch (error) {
     logger.error(`Error in creating user: ${error.message}`);
     throw error;
@@ -59,17 +59,20 @@ export const authenticateUser = async ({ email, password }) => {
     }
 
     // Compare password
-    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
 
     if (!isPasswordValid) {
       throw new Error('Invalid password');
     }
 
     logger.info(`User ${existingUser.email} authenticated successfully`);
-    
+
     // Return user without password
-    const { password, ...userWithoutPassword } = existingUser;
-    return userWithoutPassword;
+    delete existingUser.password;
+    return existingUser;
   } catch (error) {
     logger.error(`Error authenticating user: ${error.message}`);
     throw error;

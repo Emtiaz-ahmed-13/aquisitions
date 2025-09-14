@@ -8,7 +8,6 @@ describe('API Endpoints', () => {
 
       expect(response.body).toHaveProperty('status', 'OK');
       expect(response.body).toHaveProperty('timestamp');
-      // Note: The actual response doesn't include 'uptime' property
     });
   });
 
