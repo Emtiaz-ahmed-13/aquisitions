@@ -385,7 +385,9 @@ For local development, the application uses Neon Local via Docker to create ephe
 2. **Start the Development Environment**:
    ```bash
    # Run in Docker development mode with Neon Local
-   docker-compose -f docker-compose.dev.yml up
+   npm run dev:docker
+   # or
+   docker compose -f docker-compose.dev.yml up
    ```
 
 This will start both your application and the Neon Local proxy. The Neon Local proxy automatically creates ephemeral database branches for development and testing.
@@ -406,7 +408,9 @@ For production deployment, the application connects directly to the Neon Cloud d
 2. **Start the Production Environment**:
    ```bash
    # Run in Docker production mode
-   docker-compose -f docker-compose.prod.yml up
+   npm run prod:docker
+   # or
+   docker compose -f docker-compose.prod.yml up
    ```
 
 ### Docker Compose Files

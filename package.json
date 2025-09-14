@@ -28,8 +28,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studo": "drizzle-kit studio",
-    "dev:docker": "docker-compose -f docker-compose.dev.yml up",
-    "prod:docker": "docker-compose -f docker-compose.prod.yml up"
+    "dev:docker": "docker compose -f docker-compose.dev.yml up",
+    "prod:docker": "docker compose -f docker-compose.prod.yml up"
   },
   "repository": {
     "type": "git",
