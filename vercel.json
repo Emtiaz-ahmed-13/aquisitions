@@ -17,7 +17,8 @@
   ],
   "env": {
     "NODE_ENV": "production",
+    "LOG_LEVEL": "info",
     "JWT_SECRET": "vR2M7$9#pL8@nK4&zQ3!wX5*jH6%dF1!",
-    "CORS_ORIGIN": "https://your-frontend-domain.com"
+    "CORS_ORIGIN": "*"
   }
 }
